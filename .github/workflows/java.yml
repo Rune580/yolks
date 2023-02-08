@@ -18,6 +18,7 @@ jobs:
         tag:
           - 8
           - 8j9
+          - 8graalee
           - 11
           - 11j9
           - 16
