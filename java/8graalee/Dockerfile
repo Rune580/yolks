@@ -26,4 +26,4 @@ ENV USER=container HOME=/home/container JAVA_HOME=/usr/lib64/graalvm/graalvm21-e
 WORKDIR /home/container
 
 COPY ./../entrypoint.sh /entrypoint.sh
-CMD [ "/bind/bash", "/entrypoint.sh" ]
+CMD [ "/bin/bash", "/entrypoint.sh" ]
