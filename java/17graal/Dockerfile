@@ -16,7 +16,7 @@ RUN swupd bundle-add git \
     && echo "$JAVA_SHA256 */tmp/jdk.tgz" | sha256sum -c \
     && mkdir -p "$JAVA_HOME" \
     && tar --extract --file /tmp/jdk.tgz --directory "$JAVA_HOME" --strip-components 1 \
-    && rm /tmp.jdk.tgz \
+    && rm /tmp/jdk.tgz \
     && cp "$JAVA_HOME"/bin/* /usr/bin/ \
     && cp "$JAVA_HOME"/lib/* /usr/lib/ \
     && cp "$JAVA_HOME"/include/* /usr/include/
