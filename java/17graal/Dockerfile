@@ -6,13 +6,20 @@ LABEL author="Rune580" maintainer=""
 
 LABEL org.opencontainers.image.source="https://github.com/Rune580/yolks"
 
+ENV JAVA_PKG=https://download.oracle.com/graalvm/17/latest/graalvm-jdk-17_linux-x64_bin.tar.gz \
+    JAVA_HOME=/usr/java/jdk-17
+
 RUN swupd bundle-add git \
     && useradd -d /home/container -m container \
-    && mkdir -p graalvm/graalvm-17 /usr/lib64/graalvm/graalvm-17/ \
-    && curl -sLO https://download.oracle.com/graalvm/17/latest/graalvm-jdk-17_linux-x64_bin.tar.gz \
-    && tar -xf graalvm-jdk-17_linux-x64_bin.tar.gz --directory /usr/lib64/graalvm/graalvm-17/ --strip-components 1 \
-    && cp /usr/lib64/graalvm/graalvm-17/bin/* /usr/bin/ \
-    && rm graalvm-jdk-17_linux-x64_bin.tar.gz
+    && JAVA_SHA256=$(curl "$JAVA_PKG".sha256) \
+    && curl --output /tmp/jdk.tgz "$JAVA_PKG"  \
+    && echo "$JAVA_SHA256 */tmp/jdk.tgz" | sha256sum -c \
+    && mkdir -p "$JAVA_HOME" \
+    && tar --extract --file /tmp/jdk.tgz --directory "$JAVA_HOME" --strip-components 1 \
+    && rm /tmp.jdk.tgz \
+    && cp "$JAVA_HOME"/bin/* /usr/bin/ \
+    && cp "$JAVA_HOME"/lib/* /usr/lib/ \
+    && cp "$JAVA_HOME"/include/* /usr/include/
 
 USER container
 ENV USER=container HOME=/home/container JAVA_HOME=/usr/lib64/graalvm/graalvm-17/
