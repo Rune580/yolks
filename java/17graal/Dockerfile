@@ -17,9 +17,8 @@ RUN swupd bundle-add git \
     && mkdir -p "$JAVA_HOME" \
     && tar --extract --file /tmp/jdk.tgz --directory "$JAVA_HOME" --strip-components 1 \
     && rm /tmp/jdk.tgz \
-    && cp "$JAVA_HOME"/bin/* /usr/bin/ \
-    && cp "$JAVA_HOME"/lib/* /usr/lib/ \
-    && cp "$JAVA_HOME"/include/* /usr/include/
+    && cp -r "$JAVA_HOME"/bin/* /usr/bin/ \
+    && cp -r "$JAVA_HOME"/lib/* /usr/lib/
 
 USER container
 ENV USER=container HOME=/home/container JAVA_HOME=/usr/lib64/graalvm/graalvm-17/
