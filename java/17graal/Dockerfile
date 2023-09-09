@@ -16,12 +16,10 @@ RUN swupd bundle-add git \
     && echo "$JAVA_SHA256 */tmp/jdk.tgz" | sha256sum -c \
     && mkdir -p "$JAVA_HOME" \
     && tar --extract --file /tmp/jdk.tgz --directory "$JAVA_HOME" --strip-components 1 \
-    && rm /tmp/jdk.tgz \
-    && cp -r "$JAVA_HOME"/bin/* /usr/bin/ \
-    && cp -r "$JAVA_HOME"/lib/* /usr/lib/
+    && rm /tmp/jdk.tgz
 
 USER container
-ENV USER=container HOME=/home/container JAVA_HOME=/usr/lib64/graalvm/graalvm-17/
+ENV USER=container HOME=/home/container PATH=${JAVA_HOME}/bin:${PATH}
 WORKDIR /home/container
 
 COPY ./../entrypoint.sh /entrypoint.sh
