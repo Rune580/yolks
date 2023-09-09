@@ -11,9 +11,7 @@ ENV JAVA_PKG=https://web.archive.org/web/20230208173917/https://oca.opensource.o
 
 RUN swupd bundle-add git \
     && useradd -d /home/container -m container \
-    && JAVA_SHA256=$(curl "$JAVA_PKG".sha256) \
     && curl --output /tmp/jdk.tgz "$JAVA_PKG"  \
-    && echo "$JAVA_SHA256 */tmp/jdk.tgz" | sha256sum -c \
     && mkdir -p "$JAVA_HOME" \
     && tar --extract --file /tmp/jdk.tgz --directory "$JAVA_HOME" --strip-components 1 \
     && rm /tmp/jdk.tgz
