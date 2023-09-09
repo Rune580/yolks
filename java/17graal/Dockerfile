@@ -6,7 +6,7 @@ LABEL author="Rune580" maintainer=""
 
 LABEL org.opencontainers.image.source="https://github.com/Rune580/yolks"
 
-ENV JAVA_PKG=https://download.oracle.com/graalvm/17/latest/graalvm-jdk-17_linux-x64_bin.tar.gz \
+ENV JAVA_PKG=https://web.archive.org/web/20230208173917/https://oca.opensource.oracle.com/gds/GRAALVM_EE_JAVA17_22_3_1/graalvm-ee-java17-linux-amd64-22.3.1.tar.gz \
     JAVA_HOME=/usr/java/jdk-17
 
 RUN swupd bundle-add git \
